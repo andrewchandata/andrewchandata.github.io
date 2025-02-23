@@ -90,7 +90,10 @@
                 data-full-width-responsive="true"></ins>
             <script>
                 setTimeout(() => {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    if (!adPushed) {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        adPushed = true; // Set to true after pushing
+                    }
                 }, 300); // Delay of 300 milliseconds
             </script>
 
@@ -109,7 +112,7 @@
     </div>
 
     <div id="footer">
-        This is dev 0.1
+        This is dev 0.101
     </div>
 
     <script>
@@ -124,6 +127,7 @@
         let score = 0;
         let startTime = null;
         let timerInterval;
+        let adPushed = false; // Track if ad has been pushed
 
         function drawPlayer() {
             ctx.fillStyle = 'blue';
@@ -180,7 +184,10 @@
 
             // Delay the ad rendering to ensure the overlay is visible
             setTimeout(() => {
-                (adsbygoogle = window.adsbygoogle || []).push({});
+                if (!adPushed) {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    adPushed = true; // Set to true after pushing
+                }
             }, 300); // Delay of 300 milliseconds
             
             document.getElementById('shareButton').setAttribute('data-time', timeTaken);
@@ -194,6 +201,7 @@
             clearInterval(timerInterval);
             document.getElementById('timer').textContent = "Time: 0.0s";
             drawGame();
+            adPushed = false; // Reset ad push status for the next game
         }
 
         function startTimer() {
