@@ -94,7 +94,7 @@
     </div>
 
     <div id="footer">
-        This is dev 0.103
+        This is dev 0.104
     </div>
 
     <script>
@@ -109,7 +109,6 @@
         let score = 0;
         let startTime = null;
         let timerInterval;
-        let adPushed = false; // Track if ad has been pushed
 
         function drawPlayer() {
             ctx.fillStyle = 'blue';
@@ -164,6 +163,9 @@
             document.getElementById('resultText').textContent = `Game Over! Your score: ${score}. You finished the game in ${timeTaken} seconds.`;
             document.getElementById('overlay').style.display = 'flex';
 
+            // Set the data-time attribute for sharing
+            document.getElementById('shareButton').setAttribute('data-time', timeTaken);
+
             // Create the ad slot dynamically
             const adContainer = document.getElementById('adContainer');
             adContainer.innerHTML = `
@@ -193,7 +195,6 @@
             clearInterval(timerInterval);
             document.getElementById('timer').textContent = "Time: 0.0s";
             drawGame();
-            adPushed = false; // Reset ad push status for the next game
         }
 
         function startTimer() {
