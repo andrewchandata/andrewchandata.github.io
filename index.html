@@ -78,25 +78,7 @@
     <div id="overlay" style="display: none;">
         <div id="overlayContent">
             <p id="resultText"></p>
-            
-            <!-- Ad Slot -->
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7177418802933008"
-                crossorigin="anonymous"></script>
-            <ins class="adsbygoogle"
-                style="display:block; width:320px; height:100px;"
-                data-ad-client="ca-pub-7177418802933008"
-                data-ad-slot="1539183079"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-            <script>
-                setTimeout(() => {
-                    if (!adPushed) {
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                        adPushed = true; // Set to true after pushing
-                    }
-                }, 300); // Delay of 300 milliseconds
-            </script>
-
+            <div id="adContainer"></div>
             <button id="shareButton">Share Link</button>
             <button id="restartButtonOverlay">Restart Game</button>
         </div>
@@ -112,7 +94,7 @@
     </div>
 
     <div id="footer">
-        This is dev 0.102
+        This is dev 0.103
     </div>
 
     <script>
@@ -182,15 +164,25 @@
             document.getElementById('resultText').textContent = `Game Over! Your score: ${score}. You finished the game in ${timeTaken} seconds.`;
             document.getElementById('overlay').style.display = 'flex';
 
-            // Delay the ad rendering to ensure the overlay is visible
-            setTimeout(() => {
-                if (!adPushed) {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    adPushed = true; // Set to true after pushing
-                }
-            }, 300); // Delay of 300 milliseconds
-            
-            document.getElementById('shareButton').setAttribute('data-time', timeTaken);
+            // Create the ad slot dynamically
+            const adContainer = document.getElementById('adContainer');
+            adContainer.innerHTML = `
+                <ins class="adsbygoogle"
+                    style="display:block; width:320px; height:100px;"
+                    data-ad-client="ca-pub-7177418802933008"
+                    data-ad-slot="1539183079"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+            `;
+
+            // Load the ad script and push the ad
+            const script = document.createElement('script');
+            script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7177418802933008";
+            script.async = true;
+            script.onload = () => {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            };
+            document.body.appendChild(script);
         }
 
         function resetGame() {
@@ -224,7 +216,6 @@
         document.getElementById('restartButtonOverlay').addEventListener('click', () => {
             resetGame();
             document.getElementById('overlay').style.display = 'none';
-            startTimer();
         });
 
         document.getElementById('upButton').addEventListener('click', () => movePlayer(0, -blockSize));
