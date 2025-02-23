@@ -76,15 +76,16 @@
             <!-- Ad Slot -->
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7177418802933008"
                 crossorigin="anonymous"></script>
-            <!-- block-game-end-page -->
             <ins class="adsbygoogle"
-                style="display:block"
+                style="display:block; width:320px; height:100px;"
                 data-ad-client="ca-pub-7177418802933008"
                 data-ad-slot="1539183079"
                 data-ad-format="auto"
                 data-full-width-responsive="true"></ins>
             <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
+                setTimeout(() => {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                }, 300); // Delay of 300 milliseconds
             </script>
 
             <button id="shareButton">Share Link</button>
@@ -166,6 +167,12 @@
             const timeTaken = ((Date.now() - startTime) / 1000).toFixed(1);
             document.getElementById('resultText').textContent = `Game Over! Your score: ${score}. You finished the game in ${timeTaken} seconds.`;
             document.getElementById('overlay').style.display = 'flex';
+
+            // Delay the ad rendering to ensure the overlay is visible
+            setTimeout(() => {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }, 300); // Delay of 300 milliseconds
+            
             document.getElementById('shareButton').setAttribute('data-time', timeTaken);
         }
 
