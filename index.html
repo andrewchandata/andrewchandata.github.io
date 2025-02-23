@@ -9,12 +9,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: calc(100vh - 80px); /* Reduce height to avoid top cutoff */
+            height: calc(100vh - 80px);
             margin: 0;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
-            overflow: hidden; /* Prevent scrolling */
-            padding-top: 40px; /* Extra buffer at the top */
+            overflow: hidden;
+            padding-top: 40px;
         }
         #scoreboard {
             margin-bottom: 10px;
@@ -23,8 +23,8 @@
         }
         canvas {
             border: 2px solid #333;
-            height: 240px; /* Adjusted height */
-            width: 320px; /* Fixed width */
+            height: 240px; 
+            width: 320px; 
         }
         #overlay {
             position: fixed;
@@ -57,7 +57,7 @@
             font-size: 24px;
             margin: 5px;
             cursor: pointer;
-            touch-action: manipulation; /* Prevents zooming */
+            touch-action: manipulation;
         }
     </style>
 </head>
@@ -72,6 +72,21 @@
     <div id="overlay" style="display: none;">
         <div id="overlayContent">
             <p id="resultText"></p>
+            
+            <!-- Ad Slot -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7177418802933008"
+                crossorigin="anonymous"></script>
+            <!-- block-game-end-page -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-7177418802933008"
+                data-ad-slot="1539183079"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+
             <button id="shareButton">Share Link</button>
             <button id="restartButtonOverlay">Restart Game</button>
         </div>
@@ -129,7 +144,7 @@
 
                 // Check if the score reached 10
                 if (score >= 10) {
-                    endGame(); // Call endGame if score is 10 or more
+                    endGame();
                 }
             }
 
@@ -151,8 +166,6 @@
             const timeTaken = ((Date.now() - startTime) / 1000).toFixed(1);
             document.getElementById('resultText').textContent = `Game Over! Your score: ${score}. You finished the game in ${timeTaken} seconds.`;
             document.getElementById('overlay').style.display = 'flex';
-
-            // Save the time for sharing
             document.getElementById('shareButton').setAttribute('data-time', timeTaken);
         }
 
@@ -179,14 +192,14 @@
             playerX = 0; 
             playerY = 0; 
             setTargetPosition();
-            startTimer(); // Start the timer
+            startTimer();
             drawGame();
         });
 
         document.getElementById('restartButtonOverlay').addEventListener('click', () => {
             resetGame();
-            document.getElementById('overlay').style.display = 'none'; // Hide the overlay
-            startTimer(); // Start the timer again
+            document.getElementById('overlay').style.display = 'none';
+            startTimer();
         });
 
         document.getElementById('upButton').addEventListener('click', () => movePlayer(0, -blockSize));
@@ -215,7 +228,7 @@
 
         document.getElementById('shareButton').addEventListener('click', () => {
             const timeTaken = document.getElementById('shareButton').getAttribute('data-time');
-            const url = window.location.href; // Ensure we get the correct URL
+            const url = window.location.href;
             const message = `I crashed the game in ${timeTaken} seconds! Can you beat me? ${url}`;
             navigator.clipboard.writeText(message).then(() => {
                 alert('Share text copied to clipboard!');
